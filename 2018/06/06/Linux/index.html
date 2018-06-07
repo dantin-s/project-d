@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Dantin">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Dantin">
+    <meta name="keywords" content="Dantin's Blog | Dantin">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>linux · dantin&#39;s blog.</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180604 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180604 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >dantin-s blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">linux</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>dantin-s blog.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            linux
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">5,571</span> / Reading time: <span class="post-count">24 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/06/06</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h2><h3 id="软件包安装"><a href="#软件包安装" class="headerlink" title="软件包安装"></a>软件包安装</h3><h4 id="YUM"><a href="#YUM" class="headerlink" title="YUM"></a>YUM</h4><blockquote>
+<p>  yum 基于 rpm 包管理，能从指定源下载 rpm 包并安装，自动处理依赖</p>
+</blockquote>
+<ol>
+<li>基本配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 软件源来源： /etc/yum.repos.d/*.repo 文件指定</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   配置文件： /etc/yum.conf </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 代理设置： [/etc/yum.conf]</span></span><br><span class="line">proxy=http://10.57.44.162:3132</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装配置工具</span></span><br><span class="line">yum install -y yum-utils \</span><br><span class="line">               device-mapper-persistent-data \</span><br><span class="line">               lvm2 \</span><br><span class="line">               yum-config-manager</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>常用命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加第三方源(也可以手动下载替换到 /etc/yum.repos.d/ 目录下)</span></span><br><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line">yum list                      	# 列出已安装软件</span><br><span class="line">yum list </span><br><span class="line">yum check-update              	# 检查可升级的软件</span><br><span class="line">yum update                    	# 升级可升级软件</span><br><span class="line">yum update vim					# 升级指定软件</span><br><span class="line">yum remove vim					# 删除软件包</span><br><span class="line"></span><br><span class="line">yum list docker-engine.x86_64  --showduplicates |sort -r   # 查看当前存在的软件包信息</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>RPM 包管理</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-i               	# install</span><br><span class="line">-v					# verbose</span><br><span class="line">-h					</span><br><span class="line">-e					#</span><br></pre></td></tr></table></figure>
+<h4 id="APT"><a href="#APT" class="headerlink" title="APT"></a>APT</h4><ol>
+<li>基本配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 软件源定义： /etc/apt/sources.list</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置文件：   /etc/apt/apt.conf.d/</span></span><br><span class="line"></span><br><span class="line">apt-get update                	# 更新源索引</span><br><span class="line">apt-get upgrade             	# 升级软件</span><br><span class="line">apt-get dist-upgrade			# 升级操作系统及软件</span><br><span class="line">apt-get install vim           	# 安装软件包</span><br><span class="line">apt-get source vim            	# 下载源文件</span><br><span class="line">apt-get remove vim				# 删除软件包</span><br></pre></td></tr></table></figure>
+<h3 id="杂项命令"><a href="#杂项命令" class="headerlink" title="杂项命令"></a>杂项命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -a                        # 查看linux内核版本</span><br><span class="line">lsb_release -a                  # 查看linux发行版本信息</span><br></pre></td></tr></table></figure>
+<h3 id="高级运维软件"><a href="#高级运维软件" class="headerlink" title="高级运维软件"></a>高级运维软件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htop                 # top 的取代软件</span><br></pre></td></tr></table></figure>
+<h2 id="2-网络管理"><a href="#2-网络管理" class="headerlink" title="2. 网络管理"></a>2. 网络管理</h2><h3 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ubuntu apt 代理设置： /etc/apt/apt.conf</span></span><br><span class="line">Acquire::https::packages.cloud.google.com::Verify-Peer "false";</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> curl 使用代理(- o)</span></span><br><span class="line">curl --proxy "https:192.168.0.1:3132" -A "userAgent"</span><br><span class="line">curl -o xx.xml -x https://127.0.0.1:3132 -k https://repo.maven.apache.org/maven2/com/google/guava/guava/maven-metadata.xml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> wget 使用代理</span></span><br><span class="line">wget --no-check-certificate -c -r -np -k -L -p -e "https_proxy=https://10.57.44.162:3132" https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 禁用 ipv6</span></span><br><span class="line">root@hasaki ~/G/s/c/bin# vi /etc/sysctl.conf</span><br><span class="line">root@hasaki ~/G/s/c/bin# sysctl -p /etc/sysctl.conf</span><br><span class="line">net.ipv4.conf.all.arp_notify = 1</span><br><span class="line">net.ipv4.conf.default.arp_notify = 1</span><br><span class="line">net.ipv4.conf.docker0.arp_notify = 1</span><br><span class="line">net.ipv4.conf.eth0.arp_notify = 1</span><br><span class="line">net.ipv4.conf.lo.arp_notify = 1</span><br><span class="line">net.ipv6.conf.all.disable_ipv6 = 1</span><br></pre></td></tr></table></figure>
+<h3 id="nc-netcat"><a href="#nc-netcat" class="headerlink" title="nc/netcat"></a>nc/netcat</h3><blockquote>
+<p>  用来设置路由</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">nc/netcat [选项] [参数]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 选项</span></span><br><span class="line">-l：使用监听模式，监控传入的资料；</span><br><span class="line">-n：直接使用ip地址，而不通过域名服务器；</span><br><span class="line">-p：设置本地主机使用的通信端口；</span><br><span class="line">-s：设置本地主机送出数据包的IP地址；</span><br><span class="line">-u：使用UDP传输协议；</span><br><span class="line">-v：显示指令执行过程；</span><br><span class="line">-w：设置等待连线的时间；</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例</span></span><br><span class="line">echo ruok | nc localhost 2181           # 判断zk是否正常启动，应该显示 imok</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实战: 在 A 上执行 `nc -l 8080`, 在 B 上执行 curl 命令，可测试端口是否通</span></span><br></pre></td></tr></table></figure>
+<h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><h2 id="3-文件管理"><a href="#3-文件管理" class="headerlink" title="3. 文件管理"></a>3. 文件管理</h2><h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><blockquote>
+<p>  文本处理神器，主要用于文本过滤以及信息统计</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo "some thing in here." | awk '&#123;print $1,$2&#125;'        # 输出第一 第二列</span><br><span class="line">echo "some thing in here." | awk '$1=="some" ' 			# 匹配第一列的值</span><br><span class="line"></span><br><span class="line">awk 'NR==1'</span><br><span class="line">-F:   # 指定分隔符 :</span><br><span class="line"><span class="meta">#</span><span class="bash"> 参考：https://coolshell.cn/articles/9070.html</span></span><br></pre></td></tr></table></figure>
+<h3 id="Crontab-定时任务"><a href="#Crontab-定时任务" class="headerlink" title="Crontab 定时任务"></a>Crontab 定时任务</h3><blockquote>
+<p>格式说明见下图</p>
+</blockquote>
+<p><img src="https://images0.cnblogs.com/blog/34483/201301/08090352-4e0aa3fe4f404b3491df384758229be1.png" alt="img"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 实例：http://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html</span></span><br></pre></td></tr></table></figure>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><blockquote>
+<p>  搜索文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">find [目录] [选项] [搜索内容]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例</span></span><br><span class="line">find /home -name  "*.txt" 				# /home 目录下找名字匹配后缀为 txt 的文件</span><br><span class="line">find /home -iname "*.txt" 				# /home 目录下找名字匹配后缀为 txt 的文件，忽略大小写</span><br><span class="line">find /home -path  "*local*"				# /home 目录下找文件路径包含 local 的文件</span><br><span class="line">find /home -regex '.*\(\.txt\|\.pdf\)$' # 使用正则</span><br><span class="line">find /home ! -name "*.txt" 				# 否定</span><br><span class="line"></span><br><span class="line">-maxdepth 3						# 目录深度最大 3</span><br><span class="line">-mindepth 2						# 目录深度最小 2</span><br><span class="line">-perm  777						# 文件权限 777</span><br><span class="line">-user  root						# root 用户的文件</span><br><span class="line">-group root</span><br><span class="line">-type 类型参数					 # 根据文件类型来搜索</span><br><span class="line">								# f 普通文件 </span><br><span class="line">								# l 符号连接 </span><br><span class="line">								# d 目录 </span><br><span class="line">								# c 字符设备 </span><br><span class="line">								# b 块设备 </span><br><span class="line">								# s 套接字 </span><br><span class="line">								# p Fifo</span><br><span class="line"></span><br><span class="line">find . -type f -user root -exec chown tom &#123;&#125; \;  # 查找并修改</span><br><span class="line">find . -name "*.txt" |xargs grep "content"       # 查档当前目录下的所有文件，看是否包含指定内容</span><br><span class="line">find . |xargs grep "content"                     # 同上</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> find 命令后使用 2&gt;/dev/null 忽略错误信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><blockquote>
+<p>  文本搜索神器，寻找匹配内容</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 选项</span></span><br><span class="line">-c：统计查询的结果行数</span><br><span class="line">-e：多个匹配时使用</span><br><span class="line">-n：输出匹配行数</span><br><span class="line">-i：忽略大小写</span><br><span class="line">-r：递归</span><br><span class="line">-l：list with match</span><br><span class="line">-L：list without match</span><br><span class="line"></span><br><span class="line">-v：不包含的字符串</span><br><span class="line">-A：匹配行下面n行，After</span><br><span class="line">-B：匹配行上面n行，Before</span><br><span class="line">-C：匹配行上下n行</span><br><span class="line">-E：正则匹配</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实例</span></span><br><span class="line">grep "abc" file                             # 从file中查找存在 abc 字符串的行，并打印出来</span><br><span class="line">grep -v "abc" file                          # 从file中查找不包含 abc 字符串的行，并打印出来</span><br><span class="line">grep -v "abc" file                          # 从file中查找不包含 abc 字符串的行，并打印出来</span><br><span class="line">grep -rl "abc" /home/                       # 递归查找包含 abc 的文件列表</span><br><span class="line">grep -rL "abc" /home/                       # 递归查找不包含 abc 的文件列表</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> grep 命令后使用 2&gt;/dev/null 忽略错误信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><blockquote>
+<p>  远程拷贝文件的命令，底层基于ssh 协议，对于远程主机，若没有 sshd 服务，会报 ssh 链接错误：</p>
+<p>  <strong>SSH</strong>: connect to host 10.57.44.162 <strong>port 22</strong>: Connection refused</p>
+<p>  所以，对于 windows 和 linux 互传文件，可以使用 xsftp 或者 winscp 或者 git-bash 中自带的 scp 命令.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">scp [选项] [参数]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [选项]</span></span><br><span class="line">-1：使用ssh协议版本1</span><br><span class="line">-2：使用ssh协议版本2</span><br><span class="line">-4：使用ipv4</span><br><span class="line">-6：使用ipv6</span><br><span class="line">-B：以批处理模式运行</span><br><span class="line">-C：使用压缩</span><br><span class="line">-F：指定ssh配置文件</span><br><span class="line">-l：指定宽带限制</span><br><span class="line">-o：指定使用的ssh选项</span><br><span class="line">-P：指定远程主机的端口号</span><br><span class="line">-p：保留文件的最后修改时间，最后访问时间和权限模式</span><br><span class="line">-q：不显示复制进度</span><br><span class="line">-r：以递归方式复制(指定文件夹)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [参数]</span></span><br><span class="line">参数1：源文件</span><br><span class="line">参数2：目标文件</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1.从远处复制文件到本地目录，若是上传文件，则将后面两个参数顺序互换</span></span><br><span class="line">scp root@10.10.10.10:/opt/soft/nginx-0.5.38.tar.gz /tmp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2.从远处复制文件夹到本地目录，若是上传文件夹，则将后面两个参数顺序互换</span></span><br><span class="line">scp -r root@10.10.10.10:/opt/soft/ /tmp</span><br></pre></td></tr></table></figure>
+<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><blockquote>
+<p>  文本处理神器(流编辑器，逐行处理)，主要用于文本替换操作</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">sed [options] 'command' files       # 正常使用场景</span><br><span class="line">sed [options] -f scriptfile files   # 使用封装的处理脚本</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [选项]</span></span><br><span class="line">-e &lt;script&gt;                         # 使用 script 中的命令来处理文本 --expression=&lt;script&gt;</span><br><span class="line">-f &lt;script文件&gt;                     # 使用 文件 中包含的 命令来处理   --file=&lt;script文件&gt;   </span><br><span class="line">-n                                  # 不打印修改后的完整内容到屏幕，跟p一起使用表示只打印修改行</span><br><span class="line">-i                                  # 重定向到文件中</span><br><span class="line">   </span><br><span class="line"><span class="meta">#</span><span class="bash"> 实例</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 替换操作 s</span></span><br><span class="line">sed 's/book/books/'  file           # 结果：将替换后的内容打印到屏幕上，只替换每行第一个匹配值</span><br><span class="line">sed 's/book/books/g' file           # 结果：将替换后的内容打印到屏幕上，替换每行所有匹配值</span><br><span class="line">sed 's/book/books/2g' file          # 结果：将替换后的内容打印到屏幕上，替换每行第2个匹配值</span><br><span class="line">sed 's/book/books/3g' file          # 结果：将替换后的内容打印到屏幕上，替换每行第3个匹配值</span><br><span class="line">sed 's/book/books/p' file           # 结果：替换每行所有匹配值，并重复打印修改行</span><br><span class="line">sed -n 's/book/books/p' file        # 结果：替换每行所有匹配值，只打印修改行</span><br><span class="line">sed -n 's@book@books@p' file        # 结果：替换每行所有匹配值，只打印修改行，效果同上</span><br><span class="line">sed -n 's/book//p' file             # 结果：替换每行所有匹配值为空白，只打印修改行</span><br><span class="line">sed -n 's@book@@p' file             # 结果：替换每行所有匹配值为空白，只打印修改行，效果同上</span><br><span class="line">sed -i 's/book/books/g' file        # 结果：不打印输出，替换每行所有匹配值，直接写到文件中</span><br><span class="line"></span><br><span class="line">echo word1 word2|sed 's/\w\+/[&amp;]/g' # 结果：使用正则 \w\+ 匹配每个单词，然后使用 [&amp;] 表示将每个单词用 [] 包围，&amp;表示每个匹配的单词</span><br><span class="line">echo word1 word2|sed 's/\w\+/a&amp;b/g' # 结果：使用正则 \w\+ 匹配每个单词，然后使用 a&amp;b 表示将每个单词用 ab 包围，&amp;表示每个匹配的单词</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除操作 d</span></span><br><span class="line">sed '/^$/d' file                    # 结果：删除空白行</span><br><span class="line">sed '2d' file                       # 结果：删除第2行</span><br><span class="line">sed '2,$d' file                     # 结果：删除第2行到末尾</span><br><span class="line">sed '$d' file                       # 结果：删除末尾行</span><br><span class="line">sed '/^test/d' file                 # 结果：删除以test开头的行</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询操作 </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 其他操作</span></span><br><span class="line">sed '3q' file                       # 结果：打印到第3行，然后退出</span><br><span class="line">sed -e '1,5d' -e 's/t/ck/' file     # 结果：多点编辑，先删除1-5行，然后替换t为ck</span><br><span class="line">sed '/^test/a\append' file          # 结果：使用 a\ 将 append 插入到 test 后面（分隔符可以空格）</span><br><span class="line">sed '2a\append' file                # 结果：使用 a\ 将 append 插入到 第2行 后面</span><br><span class="line">sed '/^test/i\append' file          # 结果：使用 a\ 将 append 插入到 test 之前</span><br><span class="line">sed '2i\append' file                # 结果：使用 a\ 将 append 插入到 第2行 前面</span><br><span class="line">sed '1~2p' file					    # 结果：从第1行开始，间隔两行打印，即打印基数行</span><br><span class="line">sed '2~2p' file					    # 结果：从第2行开始，间隔两行打印，即打印偶数行</span><br><span class="line">sed 'N;s/abc/a' file			    # 结果：将第1、2行都输入到缓冲区，然后执行一次命令，这样第2行</span><br><span class="line">									#      即使有abc，只要第一行匹配到了，就不会匹配了</span><br><span class="line">									</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 / 作为分隔符可能存在异常报错的场景，变量里面存在 / ，被误用了。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 高级用例：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 截取文本段 &#123;% schema %&#125; 和 &#123;% endschema %&#125; 之间的内容</span></span><br><span class="line">sed -n '/^&#123;% schema %&#125;/,/&#123;% endschema %&#125;$/p' index.liquid | grep -Ev '(^\&#123;% schema %\&#125;|\&#123;% endschema %&#125;$)'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除 utf8 with bom</span></span><br><span class="line">sed -i '1s/^\xEF\xBB\xBF//' xxx.txt</span><br></pre></td></tr></table></figure>
+<h3 id="zip-unzip"><a href="#zip-unzip" class="headerlink" title="zip/unzip"></a>zip/unzip</h3><blockquote>
+<p>  压缩/解压 zip 格式的压缩包</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法</span></span><br><span class="line">unzip [选项] [参数]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [选项]</span></span><br><span class="line">-c：将解压缩的结果显示到屏幕上，并对字符做适当的转换</span><br><span class="line">-f：更新现有的文件</span><br><span class="line">-l：显示压缩文件内所包含的文件</span><br><span class="line">-p：与-c参数类似，会将解压缩的结果显示到屏幕上，但不会执行任何的转换</span><br><span class="line">-t：检查压缩文件是否正确</span><br><span class="line">-u：与-f参数类似，但是除了更新现有的文件外，也会将压缩文件中的其他文件解压缩到目录中</span><br><span class="line">-v：执行时显示详细的信息</span><br><span class="line">-z：仅显示压缩文件的备注文字</span><br><span class="line">-a：对文本文件进行必要的字符转换</span><br><span class="line">-b：不要对文本文件进行字符转换</span><br><span class="line">-C：压缩文件中的文件名称区分大小写</span><br><span class="line">-j：不处理压缩文件中原有的目录路径</span><br><span class="line">-L：将压缩文件中的全部文件名改为小写</span><br><span class="line">-M：将输出结果送到more程序处理</span><br><span class="line">-n：解压缩时不要覆盖原有的文件               [never overwrite]</span><br><span class="line">-o：不必先询问用户，unzip执行后覆盖原有的文件 [overwrite]</span><br><span class="line">-P&lt;密码&gt;：使用zip的密码选项</span><br><span class="line">-q：执行时不显示任何信息</span><br><span class="line">-s：将文件名中的空白字符转换为底线字符</span><br><span class="line">-V：保留VMS的文件版本信息</span><br><span class="line">-X：解压缩时同时回存文件原来的UID/GID</span><br><span class="line">-d&lt;目录&gt;：指定文件解压缩后所要存储的目录      [dir]</span><br><span class="line">-x&lt;文件&gt;：指定不要处理.zip压缩文件中的哪些文件</span><br><span class="line">-Z：unzip -Z等于执行zipinfo指令。</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [参数]</span></span><br><span class="line">待解压的文件</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1. 解压文件到 /tmp 目录，并覆盖/不覆盖已有文件</span></span><br><span class="line">unzip [-o|-n] test.zip -d /tmp</span><br></pre></td></tr></table></figure>
+<h2 id="4-SHELL-编程"><a href="#4-SHELL-编程" class="headerlink" title="4. SHELL 编程"></a>4. SHELL 编程</h2><h3 id="常用技巧"><a href="#常用技巧" class="headerlink" title="常用技巧"></a>常用技巧</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 脚本中获取当前目录</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找指定进程并杀掉</span></span><br></pre></td></tr></table></figure>
+<h3 id="脚本调用-3种"><a href="#脚本调用-3种" class="headerlink" title="脚本调用(3种)"></a>脚本调用(3种)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">exec</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 切换到新的脚本执行，继承上下文环境，PID 同原来的 Shell，原脚本内容不执行。示例：</span></span><br><span class="line">exec /home/script.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行过程中的内部调用，相当于库函数导入，继承上下文环境，待新脚本执行完后，继续执行原来脚本(调用脚本修改的环境变量生效)。示例：</span></span><br><span class="line">source /home/script.sh</span><br><span class="line">. ./script.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> fork</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制一份去执行，继承上下文环境，执行完之后，继续调用父脚本(子脚本修改的环境变量不生效)。示例：</span></span><br><span class="line">./script.sh</span><br><span class="line">echo $?</span><br></pre></td></tr></table></figure>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><blockquote>
+<p>  Shell 命令执行时，默认有三个文件，分别表示标准输入、标准输出、错误输出，可以通过修改将输出重定向到其他文件中;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>符号表示</th>
+<th>文件描述符</th>
+<th>默认情况</th>
+<th>对应文件位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准输入</td>
+<td>&lt;</td>
+<td>0</td>
+<td>从键盘获取</td>
+<td>/proc/slef/fd/0</td>
+</tr>
+<tr>
+<td>标准输出</td>
+<td>&gt;</td>
+<td>1</td>
+<td>输出到控制台</td>
+<td>/proc/slef/fd/1</td>
+</tr>
+<tr>
+<td>错误输出</td>
+<td>&gt;&gt;</td>
+<td>2</td>
+<td>输出到控制台</td>
+<td>/proc/slef/fd/2</td>
+</tr>
+<tr>
+<td>输入结束(EOF)</td>
+<td>&lt;&lt;</td>
+<td></td>
+<td>常见于cat命令EOF</td>
+<td>cat &lt;<eof> xxx.txt</eof></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">command &gt;filename</td>
+<td>把标准输出重定向到新文件中，若文件存在会先删除</td>
+</tr>
+<tr>
+<td style="text-align:center">command 1&gt;filename</td>
+<td>同上</td>
+</tr>
+<tr>
+<td style="text-align:center">command &gt;&gt;filename</td>
+<td>把标准输出追加到文件中，若文件存在不删除</td>
+</tr>
+<tr>
+<td style="text-align:center">command 1&gt;&gt;filename</td>
+<td>同上</td>
+</tr>
+<tr>
+<td style="text-align:center">command 2&gt;filename</td>
+<td>把标准错误重定向到新文件中</td>
+</tr>
+<tr>
+<td style="text-align:center">command 2&gt;&gt;filename</td>
+<td>把标准错误追加到新文件中</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>  2&gt;1   : 表示标准错误重定向到<strong>文件1</strong>中</p>
+<p>  2&gt;&amp;1: 表示标准错误重定向到<strong>文件描述符1所对应的文件地址</strong>，将 &amp; 理解成取指针即可。</p>
+<p>  ​            因为是指向文件地址的，所以若这条语句先执行，再执行 &gt;/dev/null ，1所指向的文件被重定向了，却不再修改 2 重定向的文件。</p>
+<p>  总结：将 1、2 看成指针变量，上诉过程是修改指针变量所执行的文件地址的过程</p>
+</blockquote>
+<h3 id="后台执行-amp-nohup"><a href="#后台执行-amp-nohup" class="headerlink" title="后台执行 &amp;/nohup"></a>后台执行 &amp;/nohup</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在命令后接 &amp; 即可在后台运行</span></span><br><span class="line">bash xxx.sh &amp;</span><br><span class="line">[0] 28080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> nohub 表示 no handup 即让进程忽略 HUP 信号，即使终端断开连接也不会导致该进程中断；</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可在最后加一个 &amp;  表示后台执行</span></span><br><span class="line">nohub bash xxx.sh &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="5-Linux-系统参考资料"><a href="#5-Linux-系统参考资料" class="headerlink" title="5. Linux 系统参考资料"></a>5. Linux 系统参考资料</h2><p><strong>文件目录说明</strong></p>
+<p><img src="./img/directory_tree.gif" alt="目录树架构"></p>
+<h2 id="6-其他"><a href="#6-其他" class="headerlink" title="6. 其他"></a>6. 其他</h2><h3 id="Server-Sumary"><a href="#Server-Sumary" class="headerlink" title="Server Sumary"></a>Server Sumary</h3><table>
+<thead>
+<tr>
+<th>Server</th>
+<th>Port</th>
+<th>info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FTP</td>
+<td>20 数据流 / 21 控制流</td>
+<td>文件传输协议；明文传输</td>
+</tr>
+<tr>
+<td>SSH/SFTP</td>
+<td>22</td>
+<td>安全文件传输协议；</td>
+</tr>
+<tr>
+<td>Telnet</td>
+<td>23</td>
+<td>远程登录控制；未加密</td>
+</tr>
+<tr>
+<td>NFS</td>
+<td></td>
+<td>网络文件系统；客户端通过 mount 挂载</td>
+</tr>
+<tr>
+<td>VNC</td>
+<td></td>
+<td>远程桌面登录，显示画面</td>
+</tr>
+<tr>
+<td>Cron</td>
+<td></td>
+<td>定时任务服务器</td>
+</tr>
+<tr>
+<td>Iperf</td>
+<td></td>
+<td>带宽测试;<a href="http://blog.sina.com.cn/s/blog_49ab2ae20100cnig.html" target="_blank" rel="noopener">参考链接</a></td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>80</td>
+<td></td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>443</td>
+</tr>
+</tbody>
+</table>
+<h3 id="VIM"><a href="#VIM" class="headerlink" title="VIM"></a>VIM</h3><p><a href="https://ruimemo.wordpress.com/2010/03/31/vim-%E6%88%91%E4%BC%9A%E7%94%A8%E7%9A%84%E6%9C%80%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%BC%96%E8%BE%91%E5%99%A8/" target="_blank" rel="noopener">快捷键参考</a></p>
+<ul>
+<li><strong>vimrc 配置</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">set modelines=0</span><br><span class="line">set shell=/bin/bash</span><br><span class="line"></span><br><span class="line">" 通用设置，可拷贝</span><br><span class="line">set backspace=2                " 设置更好的删除</span><br><span class="line">syntax on                      " 语法高亮</span><br><span class="line">autocmd InsertLeave * se nocul " 用浅色高亮当前行</span><br><span class="line">autocmd InsertEnter * se cul</span><br><span class="line">set smartindent                " 智能对齐</span><br><span class="line">set autoindent                 " 自动对齐</span><br><span class="line">set confirm                    " 在处理未保存或只读文件的时候，弹出确认框</span><br><span class="line">set number                     " 显示行号</span><br><span class="line">set hlsearch</span><br><span class="line">set incsearch                  " 搜素高亮,搜索逐渐高亮</span><br><span class="line">set cursorline                 " 突出显示当前行</span><br><span class="line">set ignorecase                 " 搜索忽略大小写</span><br><span class="line">filetype on                    " 打开文件类型检测功能</span><br><span class="line">set mouse=c                    " 允许鼠标</span><br><span class="line"></span><br><span class="line">" 统一配置</span><br><span class="line">set tabstop=4                  " tab键的宽度</span><br><span class="line">set softtabstop=4</span><br><span class="line">set shiftwidth=4               " 统一缩进为4</span><br><span class="line">set expandtab                  " 不要用空格替代制表符</span><br><span class="line">set history=50                 " 历史纪录数</span><br><span class="line">set gdefault                   " 行内替换</span><br><span class="line">set encoding=utf-8</span><br><span class="line">set fileencodings=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936,utf-16,big5,euc-jp,latin1  " 编码设置</span><br><span class="line"></span><br><span class="line">" 个性化配置</span><br><span class="line">" colorscheme solarized8_dark_low "solarized8_dark_flat  molokai</span><br><span class="line">set guifont=Menlo:h16:cANSI    " 设置字体</span><br><span class="line">set langmenu=zn_CN.UTF-8</span><br><span class="line">set helplang=cn                " 语言设置</span><br><span class="line">set ruler                      " 在编辑过程中，在右下角显示光标位置的状态行</span><br><span class="line">set laststatus=1               " 总是显示状态行</span><br><span class="line">set showcmd                    " 在状态行显示目前所执行的命令，未完成的指令片段也会显示出来</span><br><span class="line">set scrolloff=3                " 光标移动到buffer的顶部和底部时保持3行的距离</span><br><span class="line">set showmatch                  " 高亮显示对应的括号</span><br><span class="line">set matchtime=5                " 对应括号高亮时间(单位是十分之一秒)</span><br><span class="line">set autowrite                  " 在切换buffer时自动保存当前文件</span><br><span class="line">set wildmenu                   " 增强模式中的命令行自动完成操作</span><br><span class="line">set linespace=2                " 字符间插入的像素行数目</span><br><span class="line">set foldenable                 " 允许折叠</span><br><span class="line">" set magic                      " magic (\m)：除了 $ . * ^ 之外其他元字符都要加反斜杠</span><br><span class="line">                               " nomagic (\M)：除了 $ ^ 之外其他元字符都要加反斜杠</span><br><span class="line"></span><br><span class="line">set t_Co=256                   " 256色</span><br><span class="line">set whichwrap=b,s,&lt;,&gt;,[,]      " 开启normal或visual模式下的backspace键空格键，左右方向键,insert或replace模式下&gt;的左方向键，右方向键的跳行功能</span><br><span class="line"></span><br><span class="line">" 记录上次退出位置</span><br><span class="line">au BufReadPost * if line("'\"") &gt; 0|if line("'\"") &lt;= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif</span><br><span class="line"></span><br><span class="line">" set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line"></span><br><span class="line">Plugin 'VundleVim/Vundle.vim'</span><br><span class="line">"Plugin 'Valloric/YouCompleteMe'</span><br><span class="line">Plugin 'godlygeek/tabular'</span><br><span class="line">Plugin 'plasticboy/vim-markdown'</span><br><span class="line"></span><br><span class="line">call vundle#end()</span><br><span class="line">filetype plugin indent on</span><br><span class="line">" 分为三部分命令:file on,file plugin on,file indent on 分别是自动识别文件类型,用文件类型脚本,使用缩进定义文件</span><br><span class="line"></span><br><span class="line">" To ignore plugin indent changes, instead use:</span><br><span class="line">" filetype plugin on</span><br><span class="line">"</span><br><span class="line">" Brief help</span><br><span class="line">" :PluginList       - lists configured plugins</span><br><span class="line">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span><br><span class="line">" :PluginSearch foo - searches for foo; append `!` to refresh local cache</span><br><span class="line">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span><br><span class="line">"</span><br><span class="line">" see :h vundle for more details or wiki for FAQ</span><br></pre></td></tr></table></figure>
+<h3 id="FISH"><a href="#FISH" class="headerlink" title="FISH"></a>FISH</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line">apt-get install fish</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置问候语</span></span><br><span class="line">set fish_greeting \n\n\e\[32mjust\ \e\[33mshow\ \e\[34mme\ \e\[00mthe\ \e\[36mcode.</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置文件位置 vi ~/.config/fish/config.fish</span></span><br><span class="line">set PATH $PATH $GOPATH/bin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 颜色设置</span></span><br><span class="line">https://www.cnblogs.com/clover-toeic/p/4031618.html</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">安装 fisherman</span></span><br><span class="line">curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">curl -L https://get.oh-my.fish | fish</span><br><span class="line"></span><br><span class="line">https://segmentfault.com/a/1190000009621753</span><br></pre></td></tr></table></figure>
+<h4 id="bobthefish-主题配色设置"><a href="#bobthefish-主题配色设置" class="headerlink" title="bobthefish 主题配色设置"></a>bobthefish 主题配色设置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> omf install bobthefish</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 ~/.<span class="built_in">local</span>/share/omf/themes/bobthefish/<span class="built_in">functions</span>/__bobthefish_colors.fish</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 替换内容如下, 效果如截图所示</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">case</span> <span class="string">'*'</span> <span class="comment"># default dark theme</span></span></span><br><span class="line">@@ -441,8 +441,8 @@ function __bobthefish_colors -S -a color_scheme -d 'Define colors used by bobthe</span><br><span class="line">-      set -x color_initial_segment_exit     $white $red[2] --bold</span><br><span class="line">-      set -x color_initial_segment_su       $white $green[2] --bold</span><br><span class="line">+      set -x color_initial_segment_exit     $black $red[2] --bold</span><br><span class="line">+      set -x color_initial_segment_su       $black $grey</span><br><span class="line"></span><br><span class="line">@@ -461,8 +461,8 @@ function __bobthefish_colors -S -a color_scheme -d 'Define colors used by bobthe</span><br><span class="line">-      set -x color_username                 $grey[1] $blue[3] --bold</span><br><span class="line">-      set -x color_hostname                 $grey[1] $blue[3]</span><br><span class="line">+      set -x color_username                 $orange[1] black --bold</span><br><span class="line">+      set -x color_hostname                 $orange[1] black --bold</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置 vi 为黑色</span></span><br><span class="line">set -x color_vi_mode_insert           $black $grey[3]</span><br></pre></td></tr></table></figure>
+<p><img src="img/image-20180525142818312.png" alt="image-20180525142818312"></p>
+<h3 id="ZSH"><a href="#ZSH" class="headerlink" title="ZSH"></a>ZSH</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 插件</span></span><br><span class="line">oh-my-zsh</span><br><span class="line"></span><br><span class="line">git     # 内置</span><br><span class="line">extract # 内置，一键解压</span><br><span class="line">z       # 内置，目录快速跳转</span><br><span class="line">sublime # 内置</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> zsh-autosuggestions</span></span><br><span class="line">git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</span><br><span class="line">plugins=(其他的插件 zsh-autosuggestions)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> zsh-syntax-highlighting</span></span><br><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br><span class="line">plugins=(其他的插件 zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure>
+<h3 id="Tmux-配置"><a href="#Tmux-配置" class="headerlink" title="Tmux 配置"></a>Tmux 配置</h3><blockquote>
+<p>定义：终端复用软件</p>
+<p>用途：分屏/保护现场/会话共享</p>
+</blockquote>
+<h3 id="环境初始化配置"><a href="#环境初始化配置" class="headerlink" title="环境初始化配置"></a>环境初始化配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cp ~/.bashrc ~/.bashrc.bak</span><br><span class="line">echo 'alias ".."="cd .."              ' &gt;&gt; ~/.bashrc</span><br><span class="line">echo 'alias "..."="cd ../.."          ' &gt;&gt; ~/.bashrc</span><br><span class="line">echo 'alias "ll"="ls -lha"            ' &gt;&gt; ~/.bashrc</span><br><span class="line">echo 'alias "l"="ll"                  ' &gt;&gt; ~/.bashrc</span><br><span class="line">echo 'alias "kk"="ll"                 ' &gt;&gt; ~/.bashrc</span><br><span class="line">echo 'alias "grep"="grep --color=auto"' &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h3 id="linux-窗口大小不能自动适应"><a href="#linux-窗口大小不能自动适应" class="headerlink" title="linux 窗口大小不能自动适应"></a>linux 窗口大小不能自动适应</h3><blockquote>
+<p>现象： 行列只有最初默认的 80列 24行，即 LINES/COLUMNS 变量指定为 24/80，超过的字符显示在同一行的头部，且vim窗口按80列24行从左上角布局。</p>
+</blockquote>
+<p><strong>解决方案</strong></p>
+<blockquote>
+<p>使用 <code>shopt -s checkwinsize</code> 控制每次命令之后自动检查窗口大小并调节，但是实际测试发现，只有在调整窗口大小才会触发，以 bash 初始进入之后，LINES/COLUMNS 还是以 24/80 为默认值，不稳定。</p>
+<p>所以，最终采用 resize 的方式，<code>apt-get install xterm</code> 安装 xterm 软件包，然后可以手动执行 <code>resize</code> 命令，使系统重新设置 LINES/COLUMNS 大小，达到重新调整窗口大小的目的。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># resize 命令使用</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; $ resize</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> COLUMNS=181;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> LINES=42;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">export</span> COLUMNS LINES;</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>另外，为了不用手动调整，将 resize 集成到 PROMPT_COMMAND 变量中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">export</span> PROMPT_COMMAND=<span class="string">"resize &amp;&gt;/dev/null;<span class="variable">$PROMPT_COMMAND</span>"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="终端颜色配置"><a href="#终端颜色配置" class="headerlink" title="终端颜色配置"></a>终端颜色配置</h3><p><a href="http://www.techug.com/post/shell-console-color-setting.html" target="_blank" rel="noopener">参考</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">显示格式： \033[显示方式;前景色;背景色;动作m;</span><br><span class="line"></span><br><span class="line">编码 颜色/动作</span><br><span class="line"> 0 重新设置属性到缺省设置</span><br><span class="line"> 1 设置粗体</span><br><span class="line"> 2 设置一半亮度（模拟彩色显示器的颜色）</span><br><span class="line"> 4 设置下划线（模拟彩色显示器的颜色）</span><br><span class="line"> 5 设置闪烁</span><br><span class="line"> 7 设置反向图象</span><br><span class="line">22 设置一般密度</span><br><span class="line">24 关闭下划线</span><br><span class="line">25 关闭闪烁</span><br><span class="line">27 关闭反向图象</span><br><span class="line"></span><br><span class="line">30 设置黑色前景                  40 设置黑色背景</span><br><span class="line">31 设置红色前景                  41 设置红色背景</span><br><span class="line">32 设置绿色前景                  42 设置绿色背景</span><br><span class="line">33 设置棕色前景                  43 设置棕色背景</span><br><span class="line">34 设置蓝色前景                  44 设置蓝色背景</span><br><span class="line">35 设置紫色前景                  45 设置紫色背景</span><br><span class="line">36 设置青色前景                  46 设置青色背景</span><br><span class="line">37 设置白色前景                  47 设置白色背景</span><br><span class="line">38 设置下划线                     </span><br><span class="line">39 关闭下划线                    49 设置缺省黑色背景 </span><br><span class="line"></span><br><span class="line">\033[2J 　清除屏幕</span><br><span class="line">\033[0q 　关闭所有的键盘指示灯</span><br><span class="line">\033[1q 　设置“滚动锁定”指示灯 (Scroll Lock)</span><br><span class="line">\033[2q 　设置“数值锁定”指示灯 (Num Lock)</span><br><span class="line">\033[3q 　设置“大写锁定”指示灯 (Caps Lock)</span><br><span class="line">\033[15:40H 把关闭移动到第15行，40列</span><br><span class="line">\007 　　发蜂鸣生beep</span><br></pre></td></tr></table></figure>
+<h3 id="文档收集"><a href="#文档收集" class="headerlink" title="文档收集"></a>文档收集</h3><p><strong>主流 linux 系统软件包安装方式总结： <a href="!https://www.ibm.com/developerworks/cn/linux/l-cn-rpmdpkg/index.html">IBM RPM__DEB</a></strong></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://blog.dantin.cc">Dantin</a>
+            <p>原文链接: <a href="https://blog.dantin.cc/2018/06/06/Linux/">https://blog.dantin.cc/2018/06/06/Linux/</a>
+            <p>发表日期: <a href="https://blog.dantin.cc/2018/06/06/Linux/">June 6th 2018, 8:00:00</a>
+            <p>版权声明: </p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/06/07/hello/" title= Hello World >
+                    <div class="nextTitle">Hello World</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:dantin-s@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/dantin-s" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="/" target="_blank">Dantin</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统管理"><span class="toc-number">1.</span> <span class="toc-text">系统管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#软件包安装"><span class="toc-number">1.1.</span> <span class="toc-text">软件包安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#YUM"><span class="toc-number">1.1.1.</span> <span class="toc-text">YUM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#APT"><span class="toc-number">1.1.2.</span> <span class="toc-text">APT</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项命令"><span class="toc-number">1.2.</span> <span class="toc-text">杂项命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高级运维软件"><span class="toc-number">1.3.</span> <span class="toc-text">高级运维软件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-网络管理"><span class="toc-number">2.</span> <span class="toc-text">2. 网络管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy"><span class="toc-number">2.1.</span> <span class="toc-text">proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nc-netcat"><span class="toc-number">2.2.</span> <span class="toc-text">nc/netcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netstat"><span class="toc-number">2.3.</span> <span class="toc-text">netstat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-文件管理"><span class="toc-number">3.</span> <span class="toc-text">3. 文件管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#awk"><span class="toc-number">3.1.</span> <span class="toc-text">awk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Crontab-定时任务"><span class="toc-number">3.2.</span> <span class="toc-text">Crontab 定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#find"><span class="toc-number">3.3.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep"><span class="toc-number">3.4.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scp"><span class="toc-number">3.5.</span> <span class="toc-text">scp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sed"><span class="toc-number">3.6.</span> <span class="toc-text">sed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zip-unzip"><span class="toc-number">3.7.</span> <span class="toc-text">zip/unzip</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-SHELL-编程"><span class="toc-number">4.</span> <span class="toc-text">4. SHELL 编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用技巧"><span class="toc-number">4.1.</span> <span class="toc-text">常用技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚本调用-3种"><span class="toc-number">4.2.</span> <span class="toc-text">脚本调用(3种)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重定向"><span class="toc-number">4.3.</span> <span class="toc-text">重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后台执行-amp-nohup"><span class="toc-number">4.4.</span> <span class="toc-text">后台执行 &amp;/nohup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Linux-系统参考资料"><span class="toc-number">5.</span> <span class="toc-text">5. Linux 系统参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-其他"><span class="toc-number">6.</span> <span class="toc-text">6. 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-Sumary"><span class="toc-number">6.1.</span> <span class="toc-text">Server Sumary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VIM"><span class="toc-number">6.2.</span> <span class="toc-text">VIM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FISH"><span class="toc-number">6.3.</span> <span class="toc-text">FISH</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bobthefish-主题配色设置"><span class="toc-number">6.3.1.</span> <span class="toc-text">bobthefish 主题配色设置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZSH"><span class="toc-number">6.4.</span> <span class="toc-text">ZSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tmux-配置"><span class="toc-number">6.5.</span> <span class="toc-text">Tmux 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境初始化配置"><span class="toc-number">6.6.</span> <span class="toc-text">环境初始化配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux-窗口大小不能自动适应"><span class="toc-number">6.7.</span> <span class="toc-text">linux 窗口大小不能自动适应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#终端颜色配置"><span class="toc-number">6.8.</span> <span class="toc-text">终端颜色配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文档收集"><span class="toc-number">6.9.</span> <span class="toc-text">文档收集</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        <!-- search  -->
+        </div>
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/07/hello/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/2018/06/06/Linux/" >linux</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Linux/Shell"><span class="iconfont-archer">&#xe60a;</span>Linux/Shell</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Dantin"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
